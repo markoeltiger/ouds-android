@@ -112,7 +112,7 @@ private fun OudsRadioButton(
                 onClick = onClick,
                 enabled = enabled,
                 interactionSource = radioButtonInteractionSource,
-                indication = null,
+                indication = OudsControlItem.clickIndication(),
                 role = Role.RadioButton,
             )
         } else Modifier

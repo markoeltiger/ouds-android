@@ -12,7 +12,6 @@
 
 package com.orange.ouds.core.component
 
-import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -153,7 +152,7 @@ fun OudsTriStateCheckboxItem(
     val toggleableModifier = if (onClick != null) {
         Modifier.triStateToggleable(
             interactionSource = checkboxInteractionSource,
-            indication = LocalIndication.current,
+            indication = OudsControlItem.clickIndication(),
             state = state,
             onClick = onClick,
             enabled = enabled && !readOnly,
