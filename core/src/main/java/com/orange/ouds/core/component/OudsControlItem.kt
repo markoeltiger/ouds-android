@@ -100,7 +100,7 @@ internal fun OudsControlItem(
                 .height(IntrinsicSize.Min)
                 .heightIn(min = controlItemTokens.sizeMinHeight.dp)
                 .widthIn(min = controlItemTokens.sizeMinWidth.dp)
-                .background(color = backgroundColor(state = state))
+                .background(color = backgroundColor(state = state).run { if (!LocalInspectionMode.current && state == OudsControlItem.State.Pressed) Color.Transparent else this })
                 .outerBorder(state = state)
         ) {
             Row(
@@ -156,7 +156,7 @@ object OudsControlItem {
      * Indication used by control items and associated standalone elements like checkbox, radio button, ...
      */
     internal val clickIndication: @Composable () -> Indication = {
-        BackgroundColorAlphaIndication(OudsTheme.componentsTokens.controlItem.colorBgPressed.value)
+        BackgroundColorAlphaIndication(backgroundColor(State.Pressed))
     }
 
     /**
@@ -254,12 +254,7 @@ private fun backgroundColor(state: OudsControlItem.State): Color {
         when (state) {
             OudsControlItem.State.Enabled, OudsControlItem.State.Disabled, OudsControlItem.State.ReadOnly -> Color.Transparent
             OudsControlItem.State.Hovered -> colorBgHover.value
-            OudsControlItem.State.Pressed -> if (LocalInspectionMode.current) {
-                colorBgPressed.value
-            } else {
-                // Pressed background color is handled by `OudsControlItem.clickIndication`
-                Color.Transparent
-            }
+            OudsControlItem.State.Pressed -> colorBgPressed.value
             OudsControlItem.State.Focused -> colorBgFocus.value
         }
     }
